@@ -27,9 +27,26 @@ const userSchema = new mongoose.Schema(
             minlength: 60,
             maxlength: 60
         },
+        isActive:{
+            type: Boolean,
+            default: false
+        },
         isAdmin: {
             type: Boolean,
             default: false
+        },
+        cars:[{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Car'
+        }],
+        rental:[{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Rental'
+        }],
+        role:{
+            type: String,
+            enum: ['admin', 'Seller'],
+            default: 'Seller'
         },
         otp:{
             type: Number,  

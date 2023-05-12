@@ -10,11 +10,11 @@ const carSchema = new mongoose.Schema(
             maxlength: 50
           },
           brand: {
-            type: Brand.schema,
+            type: String,
             required: true
           },
           type: {
-            type: Type.schema,
+            type: String,
             required: true
           },
           numberOfSeats: {
@@ -49,6 +49,10 @@ const carSchema = new mongoose.Schema(
             required: true,
             min: 0,
             max: 255
+          },
+          _owner:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
           }
     },
     {

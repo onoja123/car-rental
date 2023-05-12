@@ -97,14 +97,14 @@ exports.signup = catchAsync ( async(req, res, next)=>{
     await newUser.save({ validateBeforeSave: false})
 
       const message = `
-      Hi ${req.body.name}, welcome to String 🚀
+      Hi ${req.body.name}, welcome to Car rental Services 🚀
       Before doing anything, we recommend verifying your account to use most of the features available,
       here is your otp verification code ${otp}`
     
     try {
         await sendEmail({
           email: newUser.email,
-          subject:  "Welcome to String 🚀",
+          subject:  "Welcome to  Car rental Services 🚀",
           message
         });
         
@@ -427,34 +427,5 @@ exports.protect = catchAsync(async(req, res, next)=>{
  * @type POST
  */
 exports.Logout = catchAsync(async(req, res, next)=>{
-  let token;
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith('Bearer')
-  )
-  token = req.headers.authorization.split(' ')[1];
-
-  if (!token) {
-    return next(
-      new AppError('You are not logged in! Please log in to get access.', 401
-       )
-    );
-  }
-  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET_KEY)
-  const currentUser = await User.findById(decoded.id);
-
-  currentUser.isLoggedIn = false;
-  await currentUser.save();
-
-  // res.json({ message: 'Successfully logged out' });
-    res.cookie('jwt', 'loggedout', {
-      expires: new Date(Date.now() + 10 * 1000),
-      httpOnly: true
-    });
-
-    res.status(200).json({
-      Success: true,
-      messsage: 'Successfully logged out'
-
-    })
-  })
+  res.status("")
+})

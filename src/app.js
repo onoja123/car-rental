@@ -1,5 +1,9 @@
 const express = require('express');
 const helmet = require('helmet');
+const userRoute = require('../src/routes/user.route');
+const authRoute = require('../src/routes/auth.route');
+const carRoute = require('../src/routes/car.route');
+const rentRoute = require('../src/routes/rent.route');
 const cors = require('cors');
 const globalHandler = require('./controllers/error.controller');
 
@@ -23,7 +27,17 @@ app.use(express.json({ limit: '10kb' }));
 
 app.use(express.urlencoded({ extended: true }));
 
+// User route
+app.use('/api/v1/user', userRoute);
 
+// Auth routes
+app.use('/api/v1/auth', authRoute)
+
+// Rent routes
+app.use('/api/v1/rent', rentRoute);
+
+// Rent routes
+app.use('/api/v1/car', carRoute);
 
 app.use(globalHandler);
 
