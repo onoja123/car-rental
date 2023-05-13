@@ -1,6 +1,7 @@
 const app = require('./src/app');
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', true);
+const connectDB = require('./src/db/connect');
 
 //catchrsing exception error
 process.on('uncaughtException', (err) => {
@@ -12,16 +13,12 @@ process.on('uncaughtException', (err) => {
 //connecting mongoose connection
 connectDB();
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 
 const server = app.listen(PORT, (req, res) => {
-  log.info(`⚡️:: Server running on port ${PORT}...`);
+  console.log(`⚡️:: Server running on port ${PORT}...`);
 });
-
-
-// Listen for new socket connections
-log.info('⚡️:: Websocket server started');
 
 
 process.on('unhandledRejection', (err) => {

@@ -4,6 +4,16 @@ const Car = require('../models/car.model')
 const AppError = require("../utils/appError")
 const catchAsync = require("../utils/catchAsync")
 
+exports.ping = catchAsync(async (req, res, next) => {
+  res.status(200).json({
+    success: true,
+    status: 'success',
+    message: 'Hello from Car',
+    data: req.body || {}
+  });
+});
+
+
 //Get Cars
 exports.getCars = catchAsync(async(req, res, next)=>{
     const cars = await Car.find().sort("name");

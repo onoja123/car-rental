@@ -4,15 +4,12 @@ const dotenv = require("dotenv")
 
 dotenv.config({path: "./src/config.env"})
 
-const DATABASE_URI = process.env.DATABASE.replace(
-    'password',
-    process.env.DATABASE_PASSWORD
-)
+const DATABASE_URI = process.env.DATABASE
 
 
 const connectDB = async () => {
     try {
-        await mongoose.connect(DATABASE_URI, {
+        await mongoose.connect('mongodb+srv://franca:Gabriella12@cluster0.531ojj9.mongodb.net/?retryWrites=true&w=majority', {
             useNewUrlParser: true,
         }).then(()=>{
             console.log('⚡️:: Connected to MongoDB!')
@@ -24,4 +21,4 @@ const connectDB = async () => {
     }
 }
 
-module.exports = connectDB
+module.exports = connectDB;

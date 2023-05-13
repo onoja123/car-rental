@@ -4,6 +4,16 @@ const Car = require('../models/car.model')
 const AppError = require("../utils/appError")
 const catchAsync = require("../utils/catchAsync")
 
+exports.ping = catchAsync(async (req, res, next) => {
+  res.status(200).json({
+    success: true,
+    status: 'success',
+    message: 'Hello from Rental Services',
+    data: req.body || {}
+  });
+});
+
+
 //Get rentals
 exports.getRentals = catchAsync(async(req, res, next)=>{
     const rent = await Rental.find().sort("-dateOut");
