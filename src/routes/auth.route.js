@@ -14,9 +14,6 @@ router.post("/signup", authController.signup)
 // Login route
 router.post("/login",authController.login)
 
-// Login route Worker
-router.post("/worker/login",authController.workerLogin)
-
 // Verify route
 router.post("/verify", authController.verify)
 
@@ -28,9 +25,6 @@ router.post("/resetpassword",  authController.resetPassword)
 
 // resendverification route
 router.post("/resendverification", authController.resendVerification)
-
-// updatepassword route
-// router.patch('/updateMyPassword', authController.updatePassword);
 
 // logout route
 router.post("/logout", authController.Logout)

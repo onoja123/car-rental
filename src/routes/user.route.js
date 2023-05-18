@@ -8,11 +8,11 @@ const userController = require("../controllers/user.controller")
 // Ping route
 router.get("/", userController.ping)
 
-// Get all cars
+// Get all users
 router.get("/profile/:id", userController.getProfile)
 
 // Delete a user route
-router.get("/profile/:id", userController.deleteUser)
+router.get("/deleteprofile/:id", userController.deleteUser)
 
 
 

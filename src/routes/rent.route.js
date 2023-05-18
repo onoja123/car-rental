@@ -3,7 +3,7 @@ const router = express();
 
 
 const authController = require("../controllers/auth.controller")
-const rentalController = require("../controllers/rental.controelr")
+const rentalController = require("../controllers/rental.controller")
 
 // Ping route
 router.get("/", rentalController.ping)

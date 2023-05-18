@@ -36,7 +36,6 @@ const createSendToken = (user, statusCode, res) =>{
 }
 
 /**
- * @author Okpe Onoja <okpeonoja18@gmail.com>
  * @description Ping Server Controller
  * @route `/api/auth/`
  * @access Public
@@ -52,7 +51,6 @@ exports.ping = catchAsync(async (req, res, next) => {
 
 
 /**
- * @author Okpe Onoja <okpeonoja18@gmail.com>
  * @description Signup User Controller
  * @route `/api/auth/signup`
  * @access Public
@@ -122,7 +120,6 @@ exports.signup = catchAsync ( async(req, res, next)=>{
 
 
   /**
- * @author Okpe Onoja <okpeonoja18@gmail.com>
  * @description Verify Users Email Controller
  * @route `/api/auth/verify`
  * @access Public
@@ -157,7 +154,6 @@ exports.verify = catchAsync(async(req, res, next)=>{
 
 
 /**
- * @author Okpe Onoja <okpeonoja18@gmail.com>
  * @description Login in User Controller
  * @route `/api/auth/login`
  * @access Public
@@ -196,51 +192,8 @@ exports.login = catchAsync(async(req, res, next)=>{
     createSendToken(user, 200,  res)
 })
 
-/**
- * @author Okpe Onoja <okpeonoja18@gmail.com>
- * @description Login in Worker Controller
- * @route `/api/auth/login`
- * @access Public
- * @type POST
- */
-exports.workerLogin = catchAsync(async(req, res, next)=>{
-  //check if user and password exist
-  
-  const { email, password} = req.body;
-
-  // 1) Check if email and password exist
-   switch((email, password)){
-     case !email || !password:
-       return  next(new AppError("Please provide email and password!", 400))
-   }
-   
-   // 2) Check if user exists && password is correct
-   const user = await User.findOne({ email }).select('+password');
-
-   if(!user){
-    res.status(404).json({
-      success: false,
-      message: "User does not exist"
-    })
-   }
-   if(user.isWorker === false){
-    return next(new AppError("Only workers can login, please contact admin.", 400))
-  }
-
-   if(user.isActive === false){
-    return next(new AppError("Please provide verify your email and try again.", 400))
-  }
-   if (!user || !(await user.correctPassword(password, user.password))) {
-     return next(new AppError('Incorrect email or password', 401));
-   }
-
-  user.isLoggedIn = true;
-
-  createSendToken(user, 200,  res)
-})
 
 /**
- * @author Okpe Onoja <okpeonoja18@gmail.com>
  * @description Resend verification otp to users email Controller
  * @route `/api/auth/resendverification`
  * @access Public
@@ -291,7 +244,6 @@ exports.resendVerification = catchAsync(async(req, res, next)=>{
 })
 
 /**
- * @author Okpe Onoja <okpeonoja18@gmail.com>
  * @description Forogot Password Controller
  * @route `/api/auth/forgotPassword`
  * @access Public
@@ -341,7 +293,6 @@ exports.forgotPassword = catchAsync(async(req, res, next)=>{
 })
 
 /**
- * @author Okpe Onoja <okpeonoja18@gmail.com>
  * @description Reset Password Controller
  * @route `/api/auth/resetpassword`
  * @access Public
@@ -420,12 +371,15 @@ exports.protect = catchAsync(async(req, res, next)=>{
 // });
 
 /**
- * @author Okpe Onoja <okpeonoja18@gmail.com>
  * @description Logout Controller
  * @route `/api/auth/logout`
  * @access Public
  * @type POST
  */
 exports.Logout = catchAsync(async(req, res, next)=>{
-  res.status("")
+  res.cookie('jwt', 'loggedout', {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true
+  });
+  res.status(200).json({ success: true,});
 })
