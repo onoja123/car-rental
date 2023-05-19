@@ -71,7 +71,7 @@ exports.postCar = catchAsync(async(req, res, next)=>{
       await car.save()
 
       user.cars.push(car._id)
-      await car.save()
+      await user.save()
 
       res.status(200).json({
         success: true,

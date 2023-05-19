@@ -66,7 +66,10 @@ exports.postRent = catchAsync(async(req, res, next)=>{
         return next(new AppError("Invalid user.", 400))
     }
 
-    const car = await Car.findById(req.body.carId);
+    const car = await Car.findById(req.cars._id);
+    console.log('====================================');
+    console.log(car);
+    console.log('====================================');
 
     if(!car){
         return next(new AppError("Invalid car.", 400))

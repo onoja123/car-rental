@@ -22,7 +22,7 @@ router.get("/rentalbyuser", rentalController.getRent)
 router.get("/rental/:id", rentalController.getRental)
 
 // post rental for sell
-router.get("/postrent/:id", rentalController.postRent)
+router.post("/postrent", rentalController.postRent)
 
 
 module.exports = router;
