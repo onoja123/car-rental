@@ -2,13 +2,6 @@ const mongoose = require("mongoose");
 
 const carSchema = new mongoose.Schema(
     {
-        name: {
-            type: String,
-            required: true,
-            trim: true,
-            minlength: 1,
-            maxlength: 50
-          },
           brand: {
             type: String,
             required: true
@@ -19,15 +12,6 @@ const carSchema = new mongoose.Schema(
           },
           numberOfSeats: {
             type: Number,
-            min: 1,
-            max: 255,
-            default: 5
-          },
-          numberOfDoors: {
-            type: Number,
-            min: 1,
-            max: 255,
-            default: 4
           },
           transmission: {
             type: String,
@@ -41,8 +25,6 @@ const carSchema = new mongoose.Schema(
           numberInStock: {
             type: Number,
             required: true,
-            min: 0,
-            max: 255
           },
           dailyRentalRate: {
             type: Number,
@@ -50,6 +32,9 @@ const carSchema = new mongoose.Schema(
             min: 0,
             max: 255
           },
+          image: [
+
+          ],
           _owner:{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'

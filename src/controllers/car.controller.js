@@ -45,18 +45,65 @@ exports.getCar = catchAsync(async(req, res, next)=>{
 })
 
 exports.postCar = catchAsync(async(req, res, next)=>{
-    const car = await Car.findByIdAndUpdate(
-        req.params.id,
-        setValues(req, brand, type),
-        {
-          new: true
-        }
-      );
-  
+
+  const {brand, type, numberOfSeats, transmission, airConditioner, numberInStock, dailyRentalRate,image, _owner} = req.body;
+
+  const user = await User.findById(_owner);
+
+      const car = new Car({
+        brand,
+        type,
+        numberOfSeats, 
+        transmission,
+        airConditioner,
+        numberInStock,
+        dailyRentalRate,
+        image,
+        _owner,
+
+      })
+
       if (!car){
-        return next(new AppError('Car with given ID does not exist.', 404));
+        return next(new AppError('Cannot post details, please try again.', 400));
       }
-    
+
+
+      await car.save()
+
+      user.cars.push(car._id)
+      await car.save()
+
+      res.status(200).json({
+        success: true,
+        message: "Car posted successfully",
+        car
+    })
+})
+
+exports.editPost = catchAsync(async(req, res, next)=>{
+  const {id} = await Car.findById(req.params.id);
+  const {brand, type, numberOfSeats, transmission, airConditioner, numberInStock, dailyRentalRate,image} = req.body;
+
+  const data = {
+    brand,
+    type,
+    numberOfSeats, 
+    transmission,
+    airConditioner,
+    numberInStock,
+    dailyRentalRate,
+    image
+  }
+
+  const result = await Car.findByIdAndUpdate(id, data, {new: true});
+  res.status(200).json({
+    success: true,
+    message: "Edit done successfully",
+    result
+})
+
+
+
 })
 
 exports.deleteCar = catchAsync(async(req, res, next)=>{
@@ -69,27 +116,5 @@ exports.deleteCar = catchAsync(async(req, res, next)=>{
     res.status(200).json({
         success: true,
         message: "Car deleted successfully",
-        data: car
       });
 })
-
-
-function setValues(req, brand, type) {
-  return {
-    name: req.body.name,
-    brand: {
-      _id: brand._id,
-      name: brand.name
-    },
-    type: {
-      _id: type._id,
-      name: type.name
-    },
-    numberOfSeats: req.body.numberOfSeats,
-    numberOfDoors: req.body.numberOfDoors,
-    transmission: req.body.transmission,
-    airConditioner: req.body.airConditioner,
-    numberInStock: req.body.numberInStock,
-    dailyRentalRate: req.body.dailyRentalRate
-  };
-}

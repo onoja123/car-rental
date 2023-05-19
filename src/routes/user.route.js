@@ -8,6 +8,12 @@ const userController = require("../controllers/user.controller")
 // Ping route
 router.get("/", userController.ping)
 
+// Protect all routes after this middleware
+router.use(authController.protect);
+
+
+router.get("/users", userController.getAll);
+
 // Get all users
 router.get("/profile/:id", userController.getProfile)
 

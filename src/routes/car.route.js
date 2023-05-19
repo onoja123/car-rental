@@ -8,17 +8,23 @@ const carController = require("../controllers/car.controller")
 // Ping route
 router.get("/", carController.ping)
 
+// Protect all routes after this middleware
+router.use(authController.protect);
+
 // Get all cars
 router.get("/cars", carController.getCars)
 
 // Get one car route
-router.get("/car", carController.getCar)
+router.get("/car/:id", carController.getCar)
 
 // Post car route
-router.post("/postcar/:id", carController.postCar)
+router.post("/postcar", carController.postCar)
+
+// Post car route
+router.patch("/editpostcar/:id", carController.editPost)
 
 // Delete car route
-router.post("/deletecar/:id", carController.deleteCar)
+router.delete("/deletecar/:id", carController.deleteCar)
 
 
 

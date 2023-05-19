@@ -9,23 +9,19 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: true,
             trim: true,
-            minlength: 5,
-            maxlength: 50
         },
         email: {
             type: String,
             required: true,
             unique: true,
             trim: true,
-            minlength: 5,
-            maxlength: 255
+
         },
         password: {
             type: String,
             required: true,
             trim: true,
-            minlength: 60,
-            maxlength: 60
+
         },
         isActive:{
             type: Boolean,

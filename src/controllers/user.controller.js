@@ -21,6 +21,21 @@ exports.ping = catchAsync(async (req, res, next) => {
     });
 });
 
+//Get all users
+exports.getAll = catchAsync(async(req, res, next)=>{
+  const data = await User.find().populate(["cars", "rental"])
+
+  if(!data){
+    return next(new AppError("Users not found", 404));
+  }
+
+  res.status(200).json({
+      success: true,
+      len: data.length,
+      data
+  })
+})
+
 /**
  * @author Okpe Onoja <okpeonoja18@gmail.com>
  * @description Get users profile Controller

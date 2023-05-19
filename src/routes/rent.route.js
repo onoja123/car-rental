@@ -5,8 +5,12 @@ const router = express();
 const authController = require("../controllers/auth.controller")
 const rentalController = require("../controllers/rental.controller")
 
+// Protect all routes after this middleware
+router.use(authController.protect);
+
 // Ping route
 router.get("/", rentalController.ping)
+
 
 // Get all rentals
 router.get("/rentals", rentalController.getRentals)

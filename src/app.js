@@ -28,16 +28,16 @@ app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true }));
 
 // User route
-// app.use('/api/v1/user', userRoute);
+app.use('/api/v1/user', userRoute);
 
 // // Auth routes
 app.use('/api/v1/auth', authRoute)
 
 // // Rent routes
-// app.use('/api/v1/rent', rentRoute);
+app.use('/api/v1/rent', rentRoute);
 
 // // Rent routes
-// app.use('/api/v1/car', carRoute);
+app.use('/api/v1/car', carRoute);
 
 app.use(globalHandler);
 
