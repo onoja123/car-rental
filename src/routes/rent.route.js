@@ -16,13 +16,15 @@ router.get("/", rentalController.ping)
 router.get("/rentals", rentalController.getRentals)
 
 // Get rental by user
-router.get("/rentalbyuser", rentalController.getRent)
+router.get("/rentalbyuser/:id", rentalController.getRent)
 
-// Get rental by user
+// Get rental by id
 router.get("/rental/:id", rentalController.getRental)
 
 // post rental for sell
 router.post("/postrent", rentalController.postRent)
 
+// post rental for sell
+router.patch("/editrent/:d", rentalController.editRental)
 
 module.exports = router;
